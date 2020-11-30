@@ -9,7 +9,7 @@
 ### 3) Install snowpack 
 type: "npm install snowpack" into terminal 
 
-### 4) Make sure the server is running and listening on port 4000 
+### 4) Make sure the server code is running and listening on port 4000 
 
 ### 5) Run the code 
 type: "npm start" into terminal

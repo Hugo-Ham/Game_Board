@@ -4,7 +4,7 @@ import { useInput } from './useInput';
 import Board from './Board';
 
 
-// function that is called in index.tsx
+// Function that is called in index.tsx
 function App(props: any) {
 
   // Get and save Nickname of player 
@@ -57,7 +57,7 @@ function App(props: any) {
   }, [gamechoice])
 
 
-  // return board if a game choice was made otherwise keep initial menu
+  // Return board if a game choice was made otherwise keep initial menu
   if (gamechoice != '') {
     return (
       <div className="App">
