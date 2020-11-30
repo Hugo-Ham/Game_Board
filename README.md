@@ -19,3 +19,5 @@ type: "npm start" into terminal
 ### 7) Or type in username, click 'submit' then click 'Online'
 
 ### 8) Wait for another player to join and play !  
+
+### 9) "ctrl + c" to close connection   
