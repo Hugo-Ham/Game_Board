@@ -1,25 +1,21 @@
-# New Project
+# Multiplayer or Singleplayer Tic Tac Toe Game
 
-Hello
+## Instructions to run 
 
-## Available Scripts
+### Clone or download zip of this project
 
-### npm start
+### Open it in VScode
 
-Runs the app in the development mode.
-Open http://localhost:8080 to view it in the browser.
+### Install snowpack 
+type: "npm install snowpack" into terminal 
 
-The page will reload if you make edits.
-You will also see any lint errors in the console.
+### Make sure the server is running and listening on port 4000
 
-### npm run build
+### Run the code 
+type: "npm start" into terminal
 
-Builds a static copy of your site to the `build/` folder.
-Your app is ready to be deployed!
+### Click 'offline' and play 
 
-**For the best production performance:** Add a build bundler plugin like "@snowpack/plugin-webpack" to your `snowpack.config.js` config file.
+### Or type in username, click 'submit' then click 'Online'
 
-### npm test
-
-Launches the application test runner.
-Run with the `--watch` flag (`npm test -- --watch`) to run in interactive watch mode.
+### Wait for another player to join and play !  
