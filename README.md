@@ -2,20 +2,20 @@
 
 ## Instructions to run 
 
-### Clone or download zip of this project
+### 1) Clone or download zip of this project
 
-### Open it in VScode
+### 2) Open it in VScode
 
-### Install snowpack 
+### 3) Install snowpack 
 type: "npm install snowpack" into terminal 
 
-### Make sure the server is running and listening on port 4000
+### 4) Make sure the server is running and listening on port 4000 
 
-### Run the code 
+### 5) Run the code 
 type: "npm start" into terminal
 
-### Click 'offline' and play 
+### 6) Click 'offline' and play 
 
-### Or type in username, click 'submit' then click 'Online'
+### 7) Or type in username, click 'submit' then click 'Online'
 
-### Wait for another player to join and play !  
+### 8) Wait for another player to join and play !  
