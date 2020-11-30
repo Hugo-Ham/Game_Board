@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
+
+// Function that is called in App.tsx
 function Board(props: any) {
+
+    // Defining hooks and properties 
 
     let [board, updateBoard] = useState({
         squares: Array(9).fill(null),
@@ -8,10 +12,13 @@ function Board(props: any) {
         status: null
     })
 
+    // Boolean that updates when a room is full and ready to start in 'Online' mode
     const [started, updateStart] = useState(false)
 
+    // Boolean that indicates the player is X in 'Online' mode
     const [xPlayer, updatePlayersym] = useState(false)
 
+    // Receive the inital board from the server
     props.socket.once('gameSetup', (initialState: any) => {
         updateBoard({
             squares: initialState.squares,
@@ -20,19 +27,34 @@ function Board(props: any) {
         })
     })
 
+    // Receive the board and who is the X player in 'Online' mode
     props.socket.once('gameStart', (online: any) => {
+
+        // update de the 'started' boolean and the board
         updateStart(true)
-        console.log(online.xPlayer)
         updateBoard(online.board)
+
         if (props.name == online.xPlayer) {
-            console.log('I am x player')
             updatePlayersym(true)
         }
-        else {
-            console.log('I am not x player')
-        }
+
     })
 
+    // defining the lobby constant and waiting for lobby information from the server in 'Online' mode
+    const [lobbyInfo, setLobby] = useState({})
+    props.socket.on('lobbySetup', (info: any) => {
+        setLobby({
+            name: info.name,
+            opponent: info.opponent
+        })
+    })
+
+    // updates the board when the server sends a 'update' message
+    props.socket.on('update', (board: any) => {
+        updateBoard(board)
+    })
+
+    // function that is specific to the 'Online' mode, returns room when waiting and the board when room is full
     function Room(props: any) {
 
         if (started) {
@@ -69,6 +91,7 @@ function Board(props: any) {
         )
     }
 
+    // to render the room
     function renderRoom(props: any, lobbyInfo: any) {
         return (
             <Room lobbyInfo={lobbyInfo} socket={props.socket} gamechoice={props.gamechoice} />
@@ -83,6 +106,7 @@ function Board(props: any) {
         );
     }
 
+    // render the sqaures of the board
     function renderSquare(props: any, i: number) {
         return (<Square
             value={board.squares[i]}
@@ -91,26 +115,28 @@ function Board(props: any) {
         );
     }
 
+    // Function used to when user clicks on square
     function handleClick(props: any, i: number) {
-        // Online allow clicks when its your turn
-        console.log(props.gamechoice)
         if (board.squares) {
+            // For the 'Online' mode
             if (props.gamechoice == 'Online') {
                 if (board.xIsNext) {
                     if (xPlayer) {
+                        // in this case 'X' is next and you are the 'X' player
                         let data = {board: board, index: i}
-                        console.log(data)
                         props.socket.emit('turn', data)
                     }
                 }
                 else {
                     if (!xPlayer) {
+                        // in this case 'O' is next and you are the 'O' player
                         let data = {board: board, index: i}
-                        console.log(data)
                         props.socket.emit('turn', data)
                     }
                 }
             }
+
+            // For the 'Offline' mode
             else {
                 console.log('Value of square i:', board.squares[i], 'i:', i)
                 props.socket.emit('turn', i)
@@ -118,21 +144,7 @@ function Board(props: any) {
         }
     }
 
-    const [lobbyInfo, setLobby] = useState({})
-
-    props.socket.on('lobbySetup', (info: any) => {
-        console.log(info)
-        setLobby({
-            name: info.name,
-            opponent: info.opponent
-        })
-    })
-
-    props.socket.on('update', (board: any) => {
-        console.log('board updated')
-        updateBoard(board)
-    })
-
+    // Return of Board.tsx, depends on the game mode choice made by player
     if (props.gamechoice == 'Offline') {
         return (
             <div>
@@ -155,7 +167,7 @@ function Board(props: any) {
             </div>
         );
     }
-    console.log('gamechoice', props.gamechoice)
+
     return (
         <div className='status'>
             {renderRoom(props, lobbyInfo)}

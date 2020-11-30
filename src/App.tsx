@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { useInput } from './useInput';
 import Board from './Board';
 
 
+// function that is called in index.tsx
 function App(props: any) {
 
+  // Get and save Nickname of player 
   const [playerName, updateName] = useState('')
-
   function GetNick() {
     const { value, bind, reset } = useInput('');
 
@@ -18,6 +18,7 @@ function App(props: any) {
       updateName(value)
       reset();
     }
+
     return (
       <div>
         <p>Tic Tac Toe Menu</p>
@@ -32,8 +33,9 @@ function App(props: any) {
     );
   }
 
-  const [gamechoice, gameupdate] = useState('');
 
+  // Get and save the choice of the player : Online or Offline
+  const [gamechoice, gameupdate] = useState('');
   function UserChoice() {
     return (
       <div>
@@ -47,12 +49,15 @@ function App(props: any) {
     );
   }
 
+  // Communicate game choice to server
   useEffect(() => {
     if (gamechoice != '') {
       props.socket.emit('gameChoice', gamechoice)
     }
   }, [gamechoice])
 
+
+  // return board if a game choice was made otherwise keep initial menu
   if (gamechoice != '') {
     return (
       <div className="App">

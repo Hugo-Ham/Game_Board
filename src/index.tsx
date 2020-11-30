@@ -5,10 +5,12 @@ import './index.css';
 // @ts-ignore
 import { io } from "socket.io-client/dist/socket.io.js"
 
-const socket = io.connect("http://tic-tac-server-node.herokuapp.com/", {
+// Start socket 
+const socket = io.connect("http://127.0.0.1:4000", {
     withCredentials: false
   });
 
+// Render App from App.tsx
 ReactDOM.render(
   <React.StrictMode>
     <App socket={socket} />
